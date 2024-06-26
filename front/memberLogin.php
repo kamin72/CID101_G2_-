@@ -33,10 +33,10 @@ try {
     if ($member->rowCount() > 0) {
         $memberRow = $member->fetchAll(PDO::FETCH_ASSOC);
         $result = ['error' => false, 'msg' => '', 'member' => $memberRow];
-        echo json_encode($result, JSON_NUMERIC_CHECK);
+        echo json_encode($result);
     } else {
         $result = ['error' => true, 'msg' => '查無會員帳號或密碼錯誤，請重新輸入', 'member' => []];
-        echo json_encode($result, JSON_NUMERIC_CHECK);
+        echo json_encode($result);
     }
 } catch (PDOException $e) {
     $msg = '錯誤原因:' . $e->getMessage() . "," . "錯誤行號:" . $e->getLine() . "," . "錯誤文件:" . $e->getFile();
