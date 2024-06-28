@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 use Ecpay\Sdk\Factories\Factory;
 use Ecpay\Sdk\Services\UrlService;
 
-require __DIR__ . '../../../../../../vendor/autoload.php';
+require __DIR__ . '/../../../../vendor/autoload.php';
 
 $factory = new Factory([
     'hashKey' => 'pwFHCqoQZGmho4w6',
