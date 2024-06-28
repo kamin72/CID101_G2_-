@@ -7,10 +7,9 @@ require __DIR__ . '/../../../../vendor/autoload.php';
 
 
 // 獲取 URL 參數
-$merchantTradeNo = isset($_POST['MerchantTradeNo']);
-$totalAmount = isset($_POST['TotalAmount']);
-$tradeDesc = isset($_POST['TradeDesc']);
-$itemName = isset($_POST['ItemName']);
+$merchantTradeNo = $_POST['MerchantTradeNo'];
+$totalAmount = $_POST['TotalAmount'];
+$itemName = $_POST['ItemName'];
 
 
 $factory = new Factory([
@@ -24,15 +23,16 @@ $input = [
     'MerchantTradeNo' => $merchantTradeNo . time(),
     'MerchantTradeDate' => date('Y/m/d H:i:s'),
     'PaymentType' => 'aio',
-    'TotalAmount' => settype($totalAmount, "integer"),
-    'TradeDesc' => UrlService::ecpayUrlEncode($tradeDesc),
+    'TotalAmount' => $totalAmount,
+    'TradeDesc' => UrlService::ecpayUrlEncode("信用卡一次付清"),
     'ItemName' => $itemName,
     'ChoosePayment' => 'Credit',
     'EncryptType' => 1,
+    'CheckMacValue' => '59B085BAEC4269DC1182D48DEF106B431055D95622EB285DECD400337144C698',
 
     // 請參考 example/Payment/GetCheckoutResponse.php 範例開發
-    'ReturnURL' => 'http://localhost:5173/cart_comp/pay_info?method=0',
-    'OrderResultURL' => 'http://localhost:5173/cart_comp/cart_finish',
+    'ReturnURL' => 'http://localhost:5173',
+    // 'OrderResultURL' => 'https://tibamef2e.com/cid101/g2/front',
 ];
 $action = 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5';
 
