@@ -1,6 +1,6 @@
 <?php
 // 允許從 Vue 應用的域名訪問
-header("Access-Control-Allow-Origin: http://localhost:5174");
+header("Access-Control-Allow-Origin: *");
 // 允許的請求方法
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 // 允許的請求頭
