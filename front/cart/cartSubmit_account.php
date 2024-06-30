@@ -11,7 +11,7 @@ $cartActualPaid = $_POST['actualPaid'];
 
 try {
     //連線mysql
-    require_once("./connectDataBase.php");
+    require_once ("../connectDataBase.php");
 
 
     // ------------先啟動交易管理
@@ -83,6 +83,7 @@ try {
 
         $order = [
             'cart_id' => $id,
+            'no' => $memberNoRow['no'],
             'build_date' => $buildDate,
             'cart_name' => $memName,
             'address' => $memAddress,
