@@ -9,6 +9,7 @@ $cartDiscount = $_POST['discount'];
 $cartActualPaid = $_POST['actualPaid'];
 
 
+
 try {
     //連線mysql
     require_once ("../connectDataBase.php");
