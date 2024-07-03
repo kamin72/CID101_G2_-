@@ -26,4 +26,4 @@ try {
     $msg = '錯誤原因:' . $e->getMessage() . "," . "錯誤行號:" . $e->getLine() . "," . "錯誤文件:" . $e->getFile();
     $result = ["error" => true, "msg" => $msg];
 }
-echo json_encode($result);
+echo json_encode($result, JSON_NUMERIC_CHECK);

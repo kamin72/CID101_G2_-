@@ -119,11 +119,11 @@ try {
         ];
 
         //先查詢訂單編號
-        $cart_id = $pdo->prepare("select cart_id from carts where cart_name = :name");
+        $cart_id = $pdo->prepare("select cart_id from carts where cart_name = :name order by cart_id desc limit 1");
         $cart_id->bindValue(":name", $memName);
         $cart_id->execute();
         $idRow = $cart_id->fetch(PDO::FETCH_ASSOC);
-
+        // print_r($idRow);
         //存入購買的商品資訊
         $sql = "INSERT INTO cartitems (cart_id, item_id, price, amount) values(:cart_id, :item_id, :price, :amount )";
         $prod = $pdo->prepare($sql);
@@ -142,8 +142,6 @@ try {
     }
 
 
-
-
     //如果新增一筆資料，送出JSON
     $result = ["error" => false, "msg" => "新增商品成功", "order" => $order, "prodInfo" => $cart];
 } catch (PDOException $e) {
@@ -155,5 +153,5 @@ try {
     $msg = '錯誤原因:' . $e->getMessage() . "," . "錯誤行號:" . $e->getLine() . "," . "錯誤文件:" . $e->getFile();
     $result = ["error" => true, "msg" => $msg];
 }
-echo json_encode($result);
+echo json_encode($result, JSON_NUMERIC_CHECK);
 
