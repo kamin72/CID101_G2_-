@@ -1,4 +1,5 @@
 <?php
+
 try {
     //連線mysql
     require_once ("../connectDataBase.php");

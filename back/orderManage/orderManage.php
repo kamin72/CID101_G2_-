@@ -16,7 +16,7 @@ try {
     }
 
     if ($order->rowCount() == 0) {
-        $result = ["error" => true, "msg" => "", "order" => $orderRow];
+        $result = ["error" => false, "msg" => "查無相關資料", "order" => null];
     } else {
         $orderRow = $order->fetchAll(PDO::FETCH_ASSOC);
         $result = ["error" => false, "msg" => "", "order" => $orderRow];
