@@ -41,10 +41,30 @@ try {
             ':name' => $name,
             ':phone' => $phone,
             ':email' => $email,
-            // ':register_date' => $registerDate, // 將註冊日期加入到 INSERT 語句中
         ]);
 
         $result = ['error' => false, 'msg' => '', 'created' => $created ];
+        echo json_encode($result,JSON_NUMERIC_CHECK);
+    }
+    
+    // 會員中心-會員資料
+    if(isset($_POST['action']) && $_POST['action']=="updateMember"){
+        $account = $_POST['account'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+
+        $sql = "UPDATE member SET phone = :phone,email = :email WHERE account = :account " ;
+
+        // 編譯並執行 SQL 指令
+        $stmt = $pdo->prepare($sql);
+        
+        $update= $stmt->execute([
+            ':account' => $account,
+            ':phone' => $phone,
+            ':email' => $email
+        ]);
+
+        $result = ['error' => false, 'msg' => '', 'update' => $update ];
         echo json_encode($result,JSON_NUMERIC_CHECK);
     }
     
