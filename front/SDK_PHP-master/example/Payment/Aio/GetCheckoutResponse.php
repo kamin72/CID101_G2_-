@@ -13,7 +13,7 @@ $checkoutResponse = $factory->create(VerifiedArrayResponse::class);
 
 // 模擬綠界付款結果回傳格式範例，非真實付款結果
 $_POST = [
-    'MerchantID' => '2000132',
+    'MerchantID' => '3002607',
     'MerchantTradeNo' => 'WPLL4E341E122DB44D62',
     'PaymentDate' => '2019/05/09 00:01:21',
     'PaymentType' => 'aio',

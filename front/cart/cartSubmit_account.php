@@ -85,7 +85,7 @@ try {
     } else {
 
         //準備sql指令
-        $sql = "insert into carts (no,build_date, cart_name, address, phone, email, cart_payableamount, cart_discount, cart_paidamount) values( :no, :date, :name, :address, :phone, :email, :sum, :discount, :actualPaid)";
+        $sql = "insert into carts (no, build_date, cart_name, address, phone, email, cart_payableamount, cart_discount, cart_paidamount) values( :no, :date, :name, :address, :phone, :email, :sum, :discount, :actualPaid)";
 
         //編譯sql指令(若上述資料有未知數)
         //代入資料
