@@ -8,14 +8,6 @@ try {
     $identity = $data['identity'] ?? '0';
 
 
-    // if ($category == 0 || $variety == 0 || $identity == 0) {
-    //     $sql = 'SELECT p.prod_category, p.prod_variety, p.prod_name, m.identity, ci.price, ci.amount 
-    //             FROM cartitems ci 
-    //             JOIN product p ON ci.item_id = p.prod_id 
-    //             JOIN carts c ON ci.cart_id = c.cart_id 
-    //             JOIN member m ON c.no = m.no';
-    //     $orderItemAll = $pdo->query($sql);
-    // } else 
     if ($category != 0) {
         $sql = "SELECT p.prod_category, p.prod_variety, p.prod_name, m.identity, ci.price, ci.amount, c.build_date 
                 FROM cartitems ci 
@@ -36,7 +28,7 @@ try {
                 JOIN product p ON ci.item_id = p.prod_id 
                 JOIN carts c ON ci.cart_id = c.cart_id 
                 JOIN member m ON c.no = m.no
-                WHERE m.identity = '$identity'";
+                WHERE  m.identity = '$identity'";
     } else {
         $sql = 'SELECT p.prod_category, p.prod_variety, p.prod_name, m.identity, ci.price, ci.amount, c.build_date 
                 FROM cartitems ci 
@@ -44,6 +36,44 @@ try {
                 JOIN carts c ON ci.cart_id = c.cart_id 
                 JOIN member m ON c.no = m.no';
     }
+
+    if ($category != 0 && $variety != 0) {
+        $sql = "SELECT p.prod_category, p.prod_variety, p.prod_name, m.identity, ci.price, ci.amount, c.build_date 
+                FROM cartitems ci 
+                JOIN product p ON ci.item_id = p.prod_id 
+                JOIN carts c ON ci.cart_id = c.cart_id 
+                JOIN member m ON c.no = m.no
+                WHERE p.prod_category = '$category' AND p.prod_variety = '$variety'";
+    }
+
+    if ($category != 0 && $identity != 0) {
+        $sql = "SELECT p.prod_category, p.prod_variety, p.prod_name, m.identity, ci.price, ci.amount, c.build_date 
+                FROM cartitems ci 
+                JOIN product p ON ci.item_id = p.prod_id 
+                JOIN carts c ON ci.cart_id = c.cart_id 
+                JOIN member m ON c.no = m.no
+                WHERE p.prod_category = '$category' AND m.identity = '$identity'";
+    }
+
+    if ($variety != 0 && $identity != 0) {
+        $sql = "SELECT p.prod_category, p.prod_variety, p.prod_name, m.identity, ci.price, ci.amount, c.build_date 
+                FROM cartitems ci 
+                JOIN product p ON ci.item_id = p.prod_id 
+                JOIN carts c ON ci.cart_id = c.cart_id 
+                JOIN member m ON c.no = m.no
+                WHERE p.prod_variety = '$variety' AND m.identity = '$identity'";
+    }
+
+    if ($category != 0 && $variety != 0 && $identity != 0) {
+        $sql = "SELECT p.prod_category, p.prod_variety, p.prod_name, m.identity, ci.price, ci.amount, c.build_date 
+                FROM cartitems ci 
+                JOIN product p ON ci.item_id = p.prod_id 
+                JOIN carts c ON ci.cart_id = c.cart_id 
+                JOIN member m ON c.no = m.no
+                 WHERE p.prod_category = '$category' AND p.prod_variety = '$variety' AND m.identity = '$identity'";
+    }
+
+
 
     $orderItemAll = $pdo->query($sql);
 
