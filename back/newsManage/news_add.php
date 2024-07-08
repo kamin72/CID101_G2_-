@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin:*");
 try {
-    require_once("./connectDataBase.php");
+    require_once("../connectDataBase.php");
 
     // 先啟動交易管理
     $pdo->beginTransaction();
