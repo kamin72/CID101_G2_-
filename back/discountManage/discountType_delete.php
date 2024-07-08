@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 
 try {
-    require_once("./connectDataBase.php");
+    require_once("../connectDataBase.php");
     $dis_serial = $_GET['dis_serial'];
 
     $sql = "DELETE FROM discount_type WHERE dis_serial = :dis_serial";

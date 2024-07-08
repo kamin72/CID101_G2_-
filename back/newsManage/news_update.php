@@ -26,7 +26,7 @@ try {
     }
 
     // 连接数据库
-    require_once("./connectDataBase.php");
+    require_once("../connectDataBase.php");
 
     // 准备更新 SQL 语句
     $sql = "UPDATE news SET 
