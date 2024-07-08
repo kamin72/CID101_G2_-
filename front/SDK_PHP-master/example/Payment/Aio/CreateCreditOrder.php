@@ -8,10 +8,10 @@ require __DIR__ . '/../../../../vendor/autoload.php';
 
 // 獲取 URL 參數
 // $merchantTradeNo = $_POST['MerchantTradeNo'];
-$totalAmount = $_POST['itemPrice'];
-$itemName = $_POST['itemName'];
-// $totalAmount = $_POST['TotalAmount'];
-// $itemName = $_POST['ItemName'];
+// $totalAmount = $_POST['itemPrice'];
+// $itemName = $_POST['itemName'];
+$totalAmount = $_POST['TotalAmount'];
+$itemName = $_POST['ItemName'];
 
 
 $factory = new Factory([
