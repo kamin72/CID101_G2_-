@@ -1,7 +1,7 @@
 <?php
 
 try{
-    require_once("./connectDataBase.php");
+  require_once("../../front/connectDataBase.php");
     //準備sql指令
     $sql = "select * from product";
     //編譯sql指令(若上述資料有未知數)
