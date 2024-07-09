@@ -11,7 +11,7 @@ require __DIR__ . '/../../../../vendor/autoload.php';
 // $totalAmount = $_POST['itemPrice'];
 // $itemName = $_POST['itemName'];
 $totalAmount = $_POST['TotalAmount'];
-$itemName = $_POST['ItemName'];
+// $itemName = $_POST['ItemName'];
 
 
 $factory = new Factory([
@@ -27,7 +27,7 @@ $input = [
     'PaymentType' => 'aio',
     'TotalAmount' => $totalAmount,
     'TradeDesc' => UrlService::ecpayUrlEncode("信用卡一次付清"),
-    'ItemName' => $itemName,
+    'ItemName' => "Silken Sip Vineyard",
     'ChoosePayment' => 'Credit',
     'EncryptType' => 1,
     'CheckMacValue' => '59B085BAEC4269DC1182D48DEF106B431055D95622EB285DECD400337144C698',
