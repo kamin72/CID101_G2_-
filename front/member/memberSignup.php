@@ -1,7 +1,7 @@
 <?php
 try {
     // 連線mysql
-    require_once ("./connectDataBase.php");
+    require_once ("../connectDataBase.php");
     // 一般會員註冊
     if(isset($_POST['action']) && $_POST['action']=="getMember"){
         $account = $_POST['account'];
@@ -30,8 +30,10 @@ try {
         $name = $_POST['name'];
         $phone = $_POST['phone'];
         $email = $_POST['email'];
+        $status = $_POST['status'];
+        $identity = $_POST['identity'];
 
-        $sql = "INSERT INTO member (account,password,name,phone,email) VALUES (:account,:password,:name,:phone,:email)";
+        $sql = "INSERT INTO member (account,password,name,phone,email,status,identity) VALUES (:account,:password,:name,:phone,:email,:status,:identity)";
 
         // 編譯並執行 SQL 指令
         $stmt = $pdo->prepare($sql);
@@ -42,6 +44,8 @@ try {
             ':name' => $name,
             ':phone' => $phone,
             ':email' => $email,
+            ':status' => $status,
+            ':identity' => $identity,
         ]);
 
         $result = ['error' => false, 'msg' => '', 'created' => $created ];
@@ -65,7 +69,57 @@ try {
         echo json_encode($result);
     }
 
-    // 批發商會員註冊
+    // 新增批發商會員資料
+    // member表
+    if(isset($_POST['action']) && $_POST['action']=="setWholesalerMember"){
+        $account = $_POST['account'];
+        $password = $_POST['password'];
+        $name = $_POST['name'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $status = $_POST['status'];
+        $identity = $_POST['identity'];
+        $taxId = $_POST['taxId'];
+        $companyName = $_POST['companyName'];
+        $address = $_POST['address'];
+
+        $sql = "INSERT INTO member (account,password,name,phone,email,status,identity) VALUES (:account,:password,:name,:phone,:email,:status,:identity)";
+
+        // 編譯並執行 SQL 指令
+        $stmt = $pdo->prepare($sql);
+        
+        $created= $stmt->execute([
+            ':account' => $account,
+            ':password' => $password,
+            ':name' => $name,
+            ':phone' => $phone,
+            ':email' => $email,
+            ':status' => $status,
+            ':identity' => $identity,
+        ]);
+
+        //抓取最後一筆新增的id
+
+        $no = $pdo->lastInsertId();
+    
+        // member_wholesaler表
+        $sql = "INSERT INTO member_retailer (no,tax_id,company_name,address,license) VALUES (:no,:taxId,:companyName,:address,:license)";
+
+        // 編譯並執行 SQL 指令
+        $stmt = $pdo->prepare($sql);
+        
+        $license='00000000';
+        $created= $stmt->execute([
+            ':no' => $no,
+            ':taxId' => $taxId,
+            ':companyName' => $companyName,
+            ':address' => $address,
+            ':license' =>$license
+        ]);
+
+        $result = ['error' => false, 'msg' => '', 'created' => $created ];
+        echo json_encode($result);
+    }
     
 
 } catch (PDOException $e) {
@@ -73,5 +127,4 @@ try {
     // echo "系統暫時不能正常運行，請稍後再試<br>";
     $result = ['error' => true, 'msg' => $msg];
 }
-echo json_encode($result);
 ?>
