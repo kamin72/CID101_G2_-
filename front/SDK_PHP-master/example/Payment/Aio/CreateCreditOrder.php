@@ -34,7 +34,7 @@ $input = [
 
     // 請參考 example/Payment/GetCheckoutResponse.php 範例開發
     'ReturnURL' => 'https://tibamef2e.com/cid101/g2/api/SKD_PHP-master/example/Payment/Aio/GetCheckoutResponse.php',
-    // 'OrderResultURL' => 'https://tibamef2e.com/cid101/g2/front',
+    'OrderResultURL' => 'https://tibamef2e.com/cid101/g2/front/cart_comp/pay_info?method=0',
 ];
 $action = 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5';
 
