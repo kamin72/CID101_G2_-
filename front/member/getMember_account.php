@@ -7,7 +7,7 @@ try {
     $memId = $_GET['memId'];
 
     //準備sql指令
-    $sql = "select * from member_retailer mr JOIN member m on mr.no = m.no where m.no = $memId";
+    $sql = "select * from member where no = $memId";
 
     //編譯sql指令(若上述資料有未知數)
     //代入資料
