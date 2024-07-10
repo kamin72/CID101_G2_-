@@ -1,7 +1,6 @@
 <?php
-header("Access-Control-Allow-Origin:*");
 try {
-    require_once("../connectDataBase.php");
+    require_once ("../../front/connectDataBase.php");
 
     // 先啟動交易管理
     $pdo->beginTransaction();
@@ -24,7 +23,7 @@ try {
     if ($_FILES["news_img"]["error"] === 0) {
         $dir = "../../image/news";
         if (!file_exists($dir)) {
-            mkdir($dir, 0777 , true);
+            mkdir($dir, 0777, true);
         }
         $fileExt = pathinfo($_FILES["news_img"]["name"], PATHINFO_EXTENSION);
         $filename = "$news_id.$fileExt";
@@ -37,7 +36,7 @@ try {
 
     // 修改剛寫入的圖檔
     $sql = "UPDATE news SET news_img='$filename' WHERE news_id=$news_id";
-    if($pdo->exec($sql) != 1) {
+    if ($pdo->exec($sql) != 1) {
         throw new Exception("圖片寫入失敗");
     } else {
         $pdo->commit();

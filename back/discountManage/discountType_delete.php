@@ -1,5 +1,4 @@
 <?php
-header('Content-Type: application/json');
 
 try {
     require_once ("../../front/connectDataBase.php");

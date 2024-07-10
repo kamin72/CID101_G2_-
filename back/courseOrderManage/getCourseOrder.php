@@ -1,6 +1,5 @@
 <?php
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');  // 允許跨域請求，根據需要調整
 
 try {
     //連線mysql
