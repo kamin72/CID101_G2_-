@@ -2,12 +2,12 @@
 
 try {
     // 連接到MySQL資料庫
-    require_once("../connectDataBase.php");
+    require_once ("../connectDataBase.php");
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $no = $_POST['no'];
 
-        $sql = "SELECT discount_got.dis_got_serial, discount_got.member_no, discount_got.dis_got_date, discount_got.dis_use_date, discount_type.dis_name, dis_set_date FROM discount_got LEFT JOIN discount_type on discount_got.dis_got_serial = discount_type.dis_serial WHERE member_no=$no";
+        $sql = "SELECT discount_got.dis_got_serial, discount_got.member_no, discount_got.dis_got_date, discount_got.dis_use_date, discount_type.dis_name, dis_set_date FROM discount_got LEFT JOIN discount_type on discount_got.dis_serial = discount_type.dis_serial WHERE member_no=$no";
 
         //編譯sql指令(若上述資料有未知數)
         //代入資料
@@ -24,7 +24,7 @@ try {
             $result = ['error' => true, 'msg' => '尚無資料', 'discounts' => []];
             echo json_encode($result, JSON_NUMERIC_CHECK);
         }
-    
+
     }
 } catch (PDOException $e) {
     // 資料庫錯誤處理
