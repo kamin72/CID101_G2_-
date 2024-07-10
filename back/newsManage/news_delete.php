@@ -1,8 +1,8 @@
 <?php
-header("Access-Control-Allow-Origin:*");
+
 
 try {
-    require_once("../connectDataBase.php");
+    require_once ("../../front/connectDataBase.php");
     $news_id = $_GET['news_id'];
 
     $sql = "DELETE FROM news WHERE news_id = :news_id";
