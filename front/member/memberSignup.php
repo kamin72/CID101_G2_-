@@ -84,6 +84,20 @@ try {
         $companyName = $_POST['companyName'];
         $address = $_POST['address'];
 
+        // if ($_FILES["company_file"]["error"] === 0) {
+        //     $dir = "../../images/products";
+        //     if ( !file_exists($dir) ) {
+        //         mkdir($dir);
+        //     }
+        //     $fileExt = pathinfo($_FILES["company_file"]["name"],PATHINFO_EXTENSION);
+        //     $filename = uniqid() . ".$fileExt";
+        //     $from = $_FILES["company_file"]["tmp_name"];
+        //     $to = "$dir{$filename}";
+        //     copy($from, $to);
+        // } else {
+        //     $result = ["error" => true, "msg" => "檔案上傳失敗"];
+        // }
+
         $sql = "INSERT INTO member (account,password,name,phone,email,created_at,status,identity) VALUES (:account,:password,:name,:phone,:email,:created_at,:status,:identity)";
 
         // 編譯並執行 SQL 指令
