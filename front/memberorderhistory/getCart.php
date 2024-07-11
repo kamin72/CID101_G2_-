@@ -17,7 +17,7 @@
 //         ELSE '未知'  END as 'cart_status_ch' 
 //         FROM carts WHERE no = $no";
 
-        
+
 //         // 編譯sql指令(若上述資料有未知數)
 //         // 代入資料
 //         // 執行sql指令
@@ -34,7 +34,7 @@
 //             $result = ['error' => true, 'msg' => '尚無資料', 'carts' => []];
 //             echo json_encode($result, JSON_NUMERIC_CHECK);
 //         }
-    
+
 //     }
 // } catch (PDOException $e) {
 //     // 資料庫錯誤處理
@@ -51,36 +51,22 @@
 
 try {
     // 連接到MySQL資料庫
-    require_once("../connectDataBase.php");
+    require_once ("../connectDataBase.php");
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $no = $_POST['no'];
 
-    $sql = "SELECT 
-        carts.*, 
-        member.*, 
-        cartitems.*, 
-        product.*, 
-        CASE carts.cart_status 
-            WHEN 0 THEN '未處理' 
-            WHEN 1 THEN '處理中' 
-            WHEN 2 THEN '已備貨' 
-            WHEN 3 THEN '已取件' 
-            WHEN 4 THEN '請求取消' 
-            WHEN 5 THEN '已取消' 
-            ELSE '未知'  
-            END as cart_status_ch 
-                FROM carts 
-                LEFT JOIN member ON member.no = carts.no
-                LEFT JOIN cartitems ON carts.cart_id = cartitems.cart_id
-                LEFT JOIN product ON cartitems.item_id = product.prod_id
-                WHERE carts.no = :no";    
+        $sql = "SELECT 
+            c.cart_id, c.build_date, c.cart_paidamount, c.cart_status, c.cart_name, c.phone, c.email, c.cart_payableamount, c.cart_discount
+            FROM carts c
+            JOIN member m ON m.no = c.no
+            WHERE c.no = :no";
 
         // 編譯SQL指令
         $stmt = $pdo->prepare($sql);
 
         // 代入資料
-        $stmt->bindParam(':no', $no, PDO::PARAM_INT);
+        $stmt->bindValue(':no', $no);
 
         // 執行SQL指令
         $stmt->execute();
@@ -89,12 +75,12 @@ try {
         if ($stmt->rowCount() > 0) {
             $cartsRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $result = ['error' => false, 'msg' => '', 'carts' => $cartsRow];
-            echo json_encode($result, JSON_NUMERIC_CHECK);
+            echo json_encode($result);
         } else {
             $result = ['error' => true, 'msg' => '尚無資料', 'carts' => []];
-            echo json_encode($result, JSON_NUMERIC_CHECK);
+            echo json_encode($result);
         }
-    
+
     }
 } catch (PDOException $e) {
     // 資料庫錯誤處理
