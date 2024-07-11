@@ -1,6 +1,7 @@
 <?php
+header("Access-Control-Allow-Origin:*");
 try {
-	require_once("../../front/connectDataBase.php");
+	require_once("./connectDataBase.php");
 	$sql = "SELECT * FROM news";
 	$news = $pdo->query($sql);
 	$newsRows = $news->fetchAll(PDO::FETCH_ASSOC);

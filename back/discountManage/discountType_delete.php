@@ -1,7 +1,7 @@
 <?php
 
 try {
-    require_once ("../../front/connectDataBase.php");
+    require_once("../../front/connectDataBase.php");
     $dis_serial = $_GET['dis_serial'];
 
     $sql = "DELETE FROM discount_type WHERE dis_serial = :dis_serial";
