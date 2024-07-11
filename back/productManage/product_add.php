@@ -1,6 +1,5 @@
 <?php
 
-
 try {
 
   require_once ("../../front/connectDataBase.php");
