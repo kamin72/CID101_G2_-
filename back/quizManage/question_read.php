@@ -1,7 +1,7 @@
 <?php
 try {
     //連線mysql
-    require_once ("../connectDataBase.php");
+    require_once ("../../front/connectDataBase.php");
 
     //準備sql指令
     $sql = "SELECT * FROM question";

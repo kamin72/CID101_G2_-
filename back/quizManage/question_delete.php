@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 
 try {
-    require_once("../connectDataBase.php");
+    require_once("../../front/connectDataBase.php");
     $q_no = $_GET['q_no'];
 
     $sql = "DELETE FROM question WHERE q_no = :q_no";

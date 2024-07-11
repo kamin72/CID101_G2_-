@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin:*");
 $data = json_decode(file_get_contents("php://input"), true);
 
 try {
-    require_once("../connectDataBase.php");
+    require_once("../../front/connectDataBase.php");
     $sql = "INSERT INTO question(q_name, q_option_a, q_option_b, q_ans) VALUES(:q_name, :q_option_a, :q_option_b, :q_ans)";
     $disStmt = $pdo->prepare( $sql );
     $disStmt->bindValue(":q_name", $data["q_name"]);

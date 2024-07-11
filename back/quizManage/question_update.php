@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 $data = json_decode(file_get_contents('php://input'), true);
 
 try {
-    require_once("../connectDataBase.php");
+    require_once("../../front/connectDataBase.php");
     $sql = "UPDATE question SET q_name = :q_name, q_option_a = :q_option_a, q_option_b = :q_option_b, q_ans = :q_ans WHERE q_no = :q_no";
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(":q_name", $data["q_name"]);

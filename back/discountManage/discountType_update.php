@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 $data = json_decode(file_get_contents('php://input'), true);
 
 try {
-    require_once("../connectDataBase.php");
+    require_once("../../front/connectDataBase.php");
     $sql = "UPDATE discount_type SET dis_name = :dis_name, dis_amount = :dis_amount, dis_set_date = :dis_set_date WHERE dis_serial = :dis_serial";
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(":dis_name", $data["dis_name"]);

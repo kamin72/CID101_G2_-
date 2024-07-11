@@ -7,7 +7,7 @@ try {
     // 检查上传图片的错误代码
     if (isset($_FILES["news_img"]) && $_FILES["news_img"]["error"] === UPLOAD_ERR_OK) {
         // 设置存储目录
-        $dir = "../../image/news";
+        $dir = "https://tibamef2e.com/cid101/g2/img/news";
         if (!file_exists($dir)) {
             mkdir($dir, 0777, true);
         }
@@ -26,14 +26,14 @@ try {
     }
 
     // 连接数据库
-    require_once("../connectDataBase.php");
+    require_once("../../front/connectDataBase.php");
 
     // 准备更新 SQL 语句
     $sql = "UPDATE news SET 
                 news_title = :news_title, 
                 news_content = :news_content, 
                 news_date = :news_date, 
-                news_active = :news_active,
+                news_state = :news_state,
                 news_img = :news_img 
             WHERE news_id = :news_id";
     $news = $pdo->prepare($sql);
@@ -42,7 +42,7 @@ try {
     $news->bindValue(":news_title", $_POST["news_title"]);
     $news->bindValue(":news_content", $_POST["news_content"]);
     $news->bindValue(":news_date", $_POST["news_date"]);
-    $news->bindValue(":news_active", $_POST["news_active"]);
+    $news->bindValue(":news_state", $_POST["news_state"]);
     $news->bindValue(":news_id", $_POST["news_id"]);
     $news->bindValue(":news_img", $filename);
 
