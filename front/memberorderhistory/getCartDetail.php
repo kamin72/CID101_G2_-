@@ -2,8 +2,8 @@
 
 try {
     // 連接到MySQL資料庫
-    require_once("../connectDataBase.php");
-    $cartId=$_GET['cartId'];
+    require_once ("../connectDataBase.php");
+    $cartId = $_GET['cartId'];
 
     $sql = "SELECT 
         carts.*, 
@@ -23,28 +23,28 @@ try {
                 LEFT JOIN member ON member.no = carts.no
                 LEFT JOIN cartitems ON carts.cart_id = cartitems.cart_id
                 LEFT JOIN product ON cartitems.item_id = product.prod_id
-                WHERE carts.no = :no";    
+                WHERE carts.no = :no";
 
-        // 編譯SQL指令
-        $stmt = $pdo->prepare($sql);
+    // 編譯SQL指令
+    $stmt = $pdo->prepare($sql);
 
-        // 代入資料
-        $stmt->bindValue(':no', $cartId);
+    // 代入資料
+    $stmt->bindValue(':no', $cartId);
 
-        // 執行SQL指令
-        $stmt->execute();
+    // 執行SQL指令
+    $stmt->execute();
 
-        // 如果找到資料，取回資料，送出JSON
-        if ($stmt->rowCount() > 0) {
-            $cartsRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $result = ['error' => false, 'msg' => '', 'carts' => $cartsRow];
-            echo json_encode($result, JSON_NUMERIC_CHECK);
-        } else {
-            $result = ['error' => true, 'msg' => '尚無資料', 'carts' => []];
-            echo json_encode($result, JSON_NUMERIC_CHECK);
-        }
-    
+    // 如果找到資料，取回資料，送出JSON
+    if ($stmt->rowCount() > 0) {
+        $cartsRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = ['error' => false, 'msg' => '', 'carts' => $cartsRow];
+        echo json_encode($result, JSON_NUMERIC_CHECK);
+    } else {
+        $result = ['error' => true, 'msg' => '尚無資料', 'carts' => []];
+        echo json_encode($result, JSON_NUMERIC_CHECK);
     }
+
+
 } catch (PDOException $e) {
     // 資料庫錯誤處理
     $msg = '資料庫錯誤，請稍後再試。';
