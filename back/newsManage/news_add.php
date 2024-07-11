@@ -1,6 +1,6 @@
 <?php
 try {
-    require_once("../../front/connectDataBase.php");
+    require_once ("../../front/connectDataBase.php");
 
     // 先啟動交易管理
     $pdo->beginTransaction();
@@ -21,12 +21,12 @@ try {
 
     // 取得上傳檔案
     if ($_FILES["news_img"]["error"] === 0) {
-        $dir = "https://tibamef2e.com/cid101/g2/img/news";
+        $dir = "https://tibamef2e.com/cid101/g2/img";
         if (!file_exists($dir)) {
-            mkdir($dir, 0777, true);
+            mkdir($dir);
         }
         $fileExt = pathinfo($_FILES["news_img"]["name"], PATHINFO_EXTENSION);
-        $filename = "$news_id.$fileExt";
+        $filename = "news_$news_id.$fileExt";
         $from = $_FILES["news_img"]["tmp_name"];
         $to = "$dir/$filename";
         copy($from, $to);
