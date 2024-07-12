@@ -3,7 +3,7 @@ $data = json_decode(file_get_contents("php://input"), true);
 
 try {
 
-    require_once ("../../front/connectDataBase.php");
+    require_once("../../front/connectDataBase.php");
     $sql = "INSERT INTO discount_type(dis_name, dis_amount, dis_set_date) VALUES(:dis_name, :dis_amount, :dis_set_date)";
     $disStmt = $pdo->prepare($sql);
     $disStmt->bindValue(":dis_name", $data["dis_name"]);

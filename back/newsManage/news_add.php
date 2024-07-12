@@ -6,14 +6,14 @@ try {
     $pdo->beginTransaction();
 
     // 新增一筆新聞資料
-    $sql = "INSERT INTO news(news_title, news_content, news_date, news_active, news_img) VALUES 
-    (:news_title, :news_content, :news_date, :news_active, :news_img)";
+    $sql = "INSERT INTO news(news_title, news_content, news_date, news_state, news_img) VALUES 
+    (:news_title, :news_content, :news_date, :news_state, :news_img)";
     $news = $pdo->prepare($sql);
 
     $news->bindValue(":news_title", $_POST["news_title"]);
     $news->bindValue(":news_content", $_POST["news_content"]);
     $news->bindValue(":news_date", $_POST["news_date"]);
-    $news->bindValue(":news_active", $_POST["news_active"]);
+    $news->bindValue(":news_state", $_POST["news_state"]);
     $news->bindValue(":news_img", '');
     $news->execute();
 
@@ -21,12 +21,12 @@ try {
 
     // 取得上傳檔案
     if ($_FILES["news_img"]["error"] === 0) {
-        $dir = "../../image/news";
+        $dir = "https://tibamef2e.com/cid101/g2/img";
         if (!file_exists($dir)) {
-            mkdir($dir, 0777, true);
+            mkdir($dir);
         }
         $fileExt = pathinfo($_FILES["news_img"]["name"], PATHINFO_EXTENSION);
-        $filename = "$news_id.$fileExt";
+        $filename = "news_$news_id.$fileExt";
         $from = $_FILES["news_img"]["tmp_name"];
         $to = "$dir/$filename";
         copy($from, $to);
