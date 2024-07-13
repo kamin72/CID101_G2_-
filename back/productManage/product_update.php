@@ -12,7 +12,7 @@ try {
   } else if ($_FILES['prod_img']['error'] === UPLOAD_ERR_OK) {
 
     $file = $_FILES['prod_img']['tmp_name'];
-    $dest = '../../images' . $_FILES['prod_img']['name'];
+    $dest = "../../../img" . $_FILES['prod_img']['name'];
 
     # 將檔案移至指定位置
     move_uploaded_file($file, $dest);
