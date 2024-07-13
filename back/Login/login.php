@@ -18,8 +18,23 @@ try {
 
     if ($stmt->rowCount() > 0) {
         // 登錄成功
-        $adminData = $stmt->fetch(PDO::FETCH_ASSOC);
-        $result = ['success' => true, 'adminData' => $adminData];
+        $loginAdminData = $stmt->fetch(PDO::FETCH_ASSOC);
+        $admin_no = $loginAdminData['admin_no'];
+
+        // 查詢最小的 admin_no
+        $minSql = "SELECT MIN(admin_no) AS min_admin_no FROM admin";
+        $minStmt = $pdo->prepare($minSql);
+        $minStmt->execute();
+        $minAdminNo = $minStmt->fetch(PDO::FETCH_ASSOC)['min_admin_no'];
+
+        // 判斷當前管理員的 admin_no 是否為最小值
+        $isSuperAdmin = $admin_no == $minAdminNo;
+
+        $result = [
+            'success' => true,
+            'loginAdminData' => $loginAdminData,
+            'isSuperAdmin' => $isSuperAdmin
+        ];
     } else {
         // 登錄失敗
         $result = ['success' => false, 'msg' => '帳號或密碼錯誤'];
