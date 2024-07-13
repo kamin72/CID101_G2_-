@@ -21,7 +21,7 @@ try {
 
     // 取得上傳檔案
     if ($_FILES["news_img"]["error"] === 0) {
-        $dir = "https://tibamef2e.com/cid101/g2/img";
+        $dir = "../../../img";
         if (!file_exists($dir)) {
             mkdir($dir);
         }

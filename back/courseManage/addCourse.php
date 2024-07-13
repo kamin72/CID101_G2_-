@@ -6,7 +6,7 @@ require_once ("../../front/connectDataBase.php");
 $isUpdate = basename($_SERVER['PHP_SELF']) === 'updateCourse.php';
 
 try {
-    $uploadDir = '../../uploads/';
+    $uploadDir = '../../../img';
     $uploadFile = $uploadDir . basename($_FILES['course_image']['name']);
     $imageFileType = strtolower(pathinfo($uploadFile, PATHINFO_EXTENSION));
 
@@ -30,7 +30,7 @@ try {
     }
 
     if (move_uploaded_file($_FILES["course_image"]["tmp_name"], $uploadFile)) {
-        $imagePath = 'https://tibamef2e.com/cid101/g2/img/' . basename($_FILES['course_image']['name']);
+        $imagePath = '../../../img' . basename($_FILES['course_image']['name']);
 
         $sql = $isUpdate
             ? "UPDATE course SET course_name = :name, course_teacher = :teacher, course_startTime = :startTime, 
