@@ -8,7 +8,7 @@ try {
     // 检查上传图片的错误代码
     if (isset($_FILES["news_img"]) && $_FILES["news_img"]["error"] === UPLOAD_ERR_OK) {
         // 设置存储目录
-        $dir = "https://tibamef2e.com/cid101/g2/img/news";
+        $dir = "../../../img";
         if (!file_exists($dir)) {
             mkdir($dir, 0777, true);
         }
@@ -27,7 +27,7 @@ try {
     }
 
     // 连接数据库
-    require_once("../../front/connectDataBase.php");
+    require_once ("../../front/connectDataBase.php");
 
     // 准备更新 SQL 语句
     $sql = "UPDATE news SET 
