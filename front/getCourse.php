@@ -1,21 +1,22 @@
 <?php
 try {
-    //連線mysql
     require_once ("./connectDataBase.php");
 
-    //準備sql指令
-    $sql = "select * from course";
+    // 檢查是否有傳入 id 參數
+    if (isset($_GET['id'])) {
+        $courseId = $_GET['id'];
+        $sql = "SELECT * FROM course WHERE course_id = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':id', $courseId, PDO::PARAM_INT);
+        $stmt->execute();
+    } else {
+        // 如果沒有 id，則獲取所有課程
+        $sql = "SELECT * FROM course";
+        $stmt = $pdo->query($sql);
+    }
 
-    //編譯sql指令(若上述資料有未知數)
-    //代入資料
-    //執行sql指令
-    $course = $pdo->query($sql);
-
-    //執行
-
-    //如果找到資料，取回資料，送出JSON
-    if ($course->rowCount() > 0) {
-        $courseRow = $course->fetchAll(PDO::FETCH_ASSOC);
+    if ($stmt->rowCount() > 0) {
+        $courseRow = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $result = ['error' => false, 'msg' => '', 'course' => $courseRow];
         echo json_encode($result, JSON_NUMERIC_CHECK);
     } else {
@@ -24,8 +25,6 @@ try {
     }
 } catch (PDOException $e) {
     $msg = '錯誤原因:' . $e->getMessage() . "," . "錯誤行號:" . $e->getLine() . "," . "錯誤文件:" . $e->getFile();
-    // echo "系統暫時不能正常運行，請稍後再試<br>";
     $result = ['error' => true, 'msg' => $msg];
     echo json_encode($result, JSON_NUMERIC_CHECK);
 }
-?>
