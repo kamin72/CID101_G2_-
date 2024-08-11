@@ -6,7 +6,7 @@ require_once ("../../front/connectDataBase.php");
 $isUpdate = basename($_SERVER['PHP_SELF']) === 'updateCourse.php';
 
 try {
-    $uploadDir = '../../../img';
+    $uploadDir = '../../../img/';
     $uploadFile = $uploadDir . basename($_FILES['course_image']['name']);
     $imageFileType = strtolower(pathinfo($uploadFile, PATHINFO_EXTENSION));
 
@@ -17,30 +17,29 @@ try {
     }
 
     // 檢查文件大小
-    if ($_FILES["course_image"]["size"] > 500000) {
+    if ($_FILES["course_image"]["size"] > 800000) {
         throw new Exception("抱歉，您的文件太大。");
     }
 
     // 允許特定的文件格式
     if (
         $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif"
     ) {
-        throw new Exception("抱歉，只允許 JPG, JPEG, PNG & GIF 文件。");
+        throw new Exception("抱歉，只允許 JPG, JPEG, PNG 文件。");
     }
 
     if (move_uploaded_file($_FILES["course_image"]["tmp_name"], $uploadFile)) {
-        $imagePath = '../../../img' . basename($_FILES['course_image']['name']);
+        $imagePath = basename($_FILES['course_image']['name']);
 
         $sql = $isUpdate
             ? "UPDATE course SET course_name = :name, course_teacher = :teacher, course_startTime = :startTime, 
-               course_endTime = :endTime, course_room = :room, course_price = :price, course_discount = :discount, 
-               course_status = :status, course_ribbon = :ribbon, course_image = :image, course_desc = :desc, 
-               course_intro = :intro, course_content = :content WHERE course_id = :id"
+           course_endTime = :endTime, course_room = :room, course_price = :price, course_discount = :discount, 
+           course_status = :status, course_ribbon = :ribbon, course_image = :image, course_desc = :desc, 
+           course_intro = :intro, course_content = :content WHERE course_id = :id"
             : "INSERT INTO course (course_name, course_teacher, course_startTime, course_endTime, course_room, 
-               course_price, course_discount, course_status, course_ribbon, course_image, course_desc, course_intro, 
-               course_content) VALUES (:name, :teacher, :startTime, :endTime, :room, :price, :discount, :status, 
-               :ribbon, :image, :desc, :intro, :content)";
+           course_price, course_discount, course_status, course_ribbon, course_image, course_desc, course_intro, 
+           course_content) VALUES (:name, :teacher, :startTime, :endTime, :room, :price, :discount, :status, 
+           :ribbon, :image, :desc, :intro, :content)";
 
         $stmt = $pdo->prepare($sql);
         $params = [
@@ -50,7 +49,8 @@ try {
             ':endTime' => $_POST['course_endTime'],
             ':room' => $_POST['course_room'],
             ':price' => $_POST['course_price'],
-            ':discount' => $_POST['course_discount'],
+            // 修改：處理優惠價格，如果為空則設為 NULL
+            ':discount' => !empty($_POST['course_discount']) ? $_POST['course_discount'] : null,
             ':status' => $_POST['course_status'],
             ':ribbon' => $_POST['course_ribbon'],
             ':image' => $imagePath,
